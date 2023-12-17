@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  snapcook:
+    container_name: snapcook
+    image: 'registry.richardxiong.com/snapcook:latest'
+    restart: unless-stopped
+    ports:
+      - '3005'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.snapcook.rule=Host(`snapcook.richardxiong.com`)
+    environment:
+      - OPENAI_API_KEY=$OPENAI_API_KEY
+      - FOOD_KEY=$FOOD_KEY
+
+networks:
+  default:
+    name: proxy
+    external: true
